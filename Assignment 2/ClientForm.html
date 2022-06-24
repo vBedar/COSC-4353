@@ -5,7 +5,6 @@
 <!--- Class and ID names for CSS portion and scripting
     * "back" - class - object type button (design note: should be on every page could sytlise into arrow)
     * "logout" - class - hyperlink (should be on the far right brings user back to log in page)
-    * "clientdetail" - class - form
     * "name" - id - text input
     * "address1" - id - text input
     * "address2" - id - text input
@@ -15,7 +14,8 @@
     * "requiredField" - class - abbreviation attaches to an '*' (make it red)
     * "clientdetail" - class - div element
     * "formsubmit" - class - submit button
-  
+    * "submitButton" - class - submit div
+    * "clientForm" - class - client form
   --->
   
 <head>
@@ -34,7 +34,7 @@
   <main> 
     <h1>Client Form</h1>
     <p>Fill out the following info</p>
-    <form class="clientdetail" method="get">
+    <form class="clientForm" method="get">
       <!---Inputs--->
       <div class="clientdetail">
           <label for="name">Full Name: </label> 
@@ -113,7 +113,7 @@
             <input type="text" id="zip" name="zipcode" required minlength="5" maxlength="9" size="10"><sup><abbr title="This is required" class="requiredField">*</abbr></sup> <!---Zipcode--->
       </div>
 
-      <div class="clientdetail">
+      <div class="submitButton">
         <input type="submit" class="formsubmit">
       </div>
 

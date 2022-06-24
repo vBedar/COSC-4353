@@ -1,0 +1,35 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.requiredField {
+  color: red;
+}
+
+.clientForm {
+  border-top: double black;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+
+
+.submitButton {
+  position: relative;
+  top: 15px;
+  bottom: 20px;
+}
+
+footer {
+  position: relative;
+  top:20px
+}
+
+.logout {
+  float: right;
+}
+
+p{
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: start;
+}
