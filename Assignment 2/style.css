@@ -33,3 +33,11 @@ p{
   font-family: Arial, Helvetica, sans-serif;
   text-align: start;
 }
+
+
+
+.fuelQuoteForm {
+  border-top: double black;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
