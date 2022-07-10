@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>Fuel Quote Client Login</title>
+    <link rel="stylesheet" href="loginstyle.css">
+</head>
+<body>
+    <div class="center">
+        <h1> Client Login</h1>
+        <form action="/signin" method="post">
+        {% csrf_token %}
+            <div class="txt_field">
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                <span></span>
+                <label>Client Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="pass1" name="pass1" placeholder="Enter password" required>
+                <span></span>
+                <label>Client Password</label>
+            </div>
+            <input type="submit" value="Login">
+            <div class="signup_link">
+                New Client? <a href="/signup">Register here</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
