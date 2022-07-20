@@ -3,7 +3,7 @@ from django.db import models
 # The Client Model for the ClientInformation Table
 # UserCredentials and ClientInformation are one-to-one
 class Client (models.Model):
-    user = models.ForeignKey('User', on_delete = models.RESTRICT)
+    #user = models.ForeignKey('User', on_delete = models.RESTRICT)
     stAddress1 = models.CharField(max_length = 100)
     stAddress2 = models.CharField(max_length = 100, blank=True)
     city = models.CharField(max_length = 100)
