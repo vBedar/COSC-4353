@@ -62,3 +62,5 @@ class Client (models.Model):
     state = models.CharField(max_length = 2, choices=STATES)
     name = models.CharField(max_length = 50)
     zip = models.CharField(max_length = 9)
+    def __str__(self):
+        return self.name

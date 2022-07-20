@@ -12,22 +12,21 @@ def index(request):
 
 # def formComplete(request):
 #     return HttpResponse("Form Submitted, Thanks!")
+def submitForm(request):
+    clientregistration = Client
+    if request.method == 'POST':
+        form = clientForm(request.POST)
+        if form.is_valid():
+            clientregistration.name = form.cleaned_data['full_name']
+            clientregistration.stAddress1 = form.cleaned_data['address_1']
+            clientregistration.stAddress2 = form.cleaned_data['address_2']
+            clientregistration.city = form.cleaned_data['city']
+            clientregistration.state = form.cleaned_data['state']
+            clientregistration.zip = form.cleaned_data['zipcode']
+            clientregistration.save()
+            return HttpResponseRedirect('complete/')
 
-# def submitForm(request):
-#     clientregistration = Client
-#     if request.method == 'POST':
-#         form = clientForm(request.POST)
-#         if form.is_valid():
-#             clientregistration.name = form.cleaned_data['full_name']
-#             clientregistration.stAddress1 = form.cleaned_data['address_1']
-#             clientregistration.stAddress2 = form.cleaned_data['address_2']
-#             clientregistration.city = form.cleaned_data['city']
-#             clientregistration.state = form.cleaned_data['state']
-#             clientregistration.zip = form.cleaned_data['zipcode']
-#             #clientregistration.save()
-#             return HttpResponseRedirect('complete/')
+    else:
+        form = clientForm()
 
-#     else:
-#         form = clientForm()
-
-#     return render(request, 'cForm/ClientForm.html', {'form': form})    
+    return render(request, 'ClientForm.html', {'form': form})    
