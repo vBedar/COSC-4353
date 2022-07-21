@@ -35,7 +35,7 @@
   <main> 
     <h1>Client Form</h1>
     <p>Fill out the following info</p>
-    <form class="clientForm" method="post" action = "{% url 'submitForm' user.id %}">
+    <form class="clientForm" method="post" action = "{% url 'submitForm' %}">
       {% csrf_token %}
       {{form.as_p}}
       <!-- -Inputs-

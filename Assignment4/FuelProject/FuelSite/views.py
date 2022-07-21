@@ -10,14 +10,15 @@ from .forms import clientForm
 
 def index(request):
     #return HttpResponse()
-    #return HttpResponseRedirect('registration/')
+    return HttpResponseRedirect('registration/')
     #return HttpResponseRedirect(reverse('submitForm'), args)
 
 def formComplete(request):
     return HttpResponse("Form Submitted, Thanks!")
 
-def submitForm(request, user_id):
-    client_detail = get_object_or_404(Client, pk=user_id)
+def submitForm(request):
+    #client_detail = get_object_or_404(Client, pk=user_id)
+    client_detail = Client()
     if request.method == 'POST':
         form = clientForm(request.POST)
         if form.is_valid():
