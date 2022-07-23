@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
+
+
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -7,13 +9,17 @@ from django.urls import reverse
 
 from .models import Client
 from .forms import clientForm
+from .models import User
 
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-
+from cryptography.fernet import Fernet
 
 #Dhruvs Views
+
+
+key = Fernet.generate_key()
 
 def home(request):
     #return HttpResponse("hello I am working")
@@ -54,9 +60,29 @@ def signup(request):
             # return redirect('home')
             return HttpResponse("Username must be Alpha-Numeric! Please reload and tray again")
 
-        myuser = User.objects.create_user(username, email=None, password=pass1)
+        # myuser = User.objects.create_user(username, email=None, password=pass1)
 
-        myuser.save()
+        # myuser.save()
+
+        user_object = User()
+        user_object.username = username
+
+        new_string = ""
+
+        for i in range(len(pass1)):
+            char = pass1[i]
+            char_value = ord(char)
+            new_char_value = char_value + 3
+            new_char = chr(new_char_value)
+            new_string = new_string + new_char
+
+
+
+
+        user_object.password = new_string
+        
+        user_object.save()
+
 
         messages.success(request, "Your Account has been successfully created.")
 
@@ -68,17 +94,36 @@ def signup(request):
 def signin(request):
 
     if request.method == 'POST':
-        username = request.POST['username']
+        user_username = request.POST['username']
         pass1 = request.POST['pass1']
 
-        user = authenticate(username=username, password=pass1)
+        # user = authenticate(username=username, password=pass1)
 
-        if user is not None:
-            login(request, user)
-            return redirect('accountcreated')
-            #user will log into the client profile page
-            #return HttpResponse("you are successfully logged in")
-        
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('accountcreated')
+        #     #user will log into the client profile page
+        #     #return HttpResponse("you are successfully logged in")
+
+        if User.objects.filter(username=user_username).first() is not None:
+            
+            encrypted_password = User.objects.get(username=user_username)
+
+            new_string = ""
+
+            for i in range(len(encrypted_password.password)):
+                char = encrypted_password.password[i]
+                char_value = ord(char)
+                new_char_value = char_value - 3
+                new_char = chr(new_char_value)
+                new_string = new_string + new_char
+
+
+            if new_string == pass1:
+                return redirect('accountcreated')
+            else:
+                 return HttpResponse("Bad Credentials. Please reload and Try again")
+
         else:
             messages.error(request, "Bad Credentials")
             return redirect('home')

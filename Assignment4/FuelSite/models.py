@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
+
 
 # The Client Model for the ClientInformation Table
 # UserCredentials and ClientInformation are one-to-one
@@ -64,3 +66,11 @@ class Client (models.Model):
     zip = models.CharField(max_length = 9)
     def __str__(self):
         return self.name
+
+
+
+
+class User(models.Model):
+    username = models.CharField(max_length=15)
+    password = models.CharField(max_length=20)
+    
