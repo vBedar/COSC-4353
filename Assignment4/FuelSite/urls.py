@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup', views.signup, name="signup"),
     path('signin', views.signin, name="signin"),
     path('accountcreated', views.accountcreated, name="accountcreated"),
+<<<<<<< HEAD
     #path('', views.index, name='index'),
     path('registration/', views.submitForm, name = 'submitForm'),
     path('registration/complete/', views.formComplete, name = 'formComplete'),
@@ -22,4 +23,11 @@ urlpatterns = [
 
  
 
+=======
+    #path('registration/', views.submitForm, name = 'submitForm'),
+    #path('registration/complete/', views.formComplete, name = 'formComplete'),
+    path('<int:user_id>/QuoteHistory/', views.fuelHist, name="fuelHist"),
+    path('<int:user_id>/editClient/', views.submitCliForm, name = 'submitCliForm'),
+    path('<int:user_id>/editClient/complete/', views.formCliComplete, name = 'formCliComplete')
+>>>>>>> e265f6f71540306fa09efe7c756303204fdcd907
 ]

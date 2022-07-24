@@ -1,15 +1,18 @@
 from django.test import TestCase
-from FuelSite.models import Client
+from FuelSite.models import Client, User
 from FuelSite.forms import clientForm
 
 # Create your tests here.
 class ClientTest(TestCase):
     @classmethod
     def setUpTestData(cls):
+        #Users for the Client
+        u1 = User.objects.create(username="user1", password="1234")
+        u2 = User.objects.create(username="user2", password="1234")
         #Valid Client no 2nd address
-        Client.objects.create(name="Dave", stAddress1="3333 Nowhere st.", state="TX", city="Somewhere", zip="33333")
+        Client.objects.create(user=u1, name="Dave", stAddress1="3333 Nowhere st.", state="TX", city="Somewhere", zip="33333")
         #Valis Client with 2nd address
-        Client.objects.create(name="Betty", stAddress1="444 None ave.", stAddress2="3234 h bl.", state="AL", city="u", zip="7777")
+        Client.objects.create(user=u2, name="Betty", stAddress1="444 None ave.", stAddress2="3234 h bl.", state="AL", city="u", zip="7777")
 
     def testClientForm(self):
         #Form with no address 2
@@ -69,10 +72,13 @@ class ClientTest(TestCase):
 
 
     def test_template(self):
-        tempresponse = self.client.get('/clientForm/registration/')
+        tempresponse = self.client.get('/1/editClient/')
         self.assertEqual(tempresponse.status_code, 200)
-        self.assertTemplateUsed(tempresponse, 'cForm/ClientForm.html')
+        self.assertTemplateUsed(tempresponse, 'ClientForm.html')
+        fuelresponse = self.client.get('/1/QuoteHistory/')
+        self.assertEqual(fuelresponse.status_code, 200)
+        self.assertTemplateUsed(fuelresponse, 'FuelQuoteHist.html')
 
     def test_completeurl(self):
-        compresponse = self.client.get('/clientForm/registration/complete/')
+        compresponse = self.client.get('/1/editClient/complete/')
         self.assertEqual(compresponse.status_code, 200)

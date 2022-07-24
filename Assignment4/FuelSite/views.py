@@ -86,6 +86,10 @@ def signup(request):
         user_object.save()
 
 
+        #making a new client object that corresponds with User
+        new_Client = Client.objects.create(user=user_object)
+        new_Client.save()
+
         messages.success(request, "Your Account has been successfully created.")
 
         return redirect('home')
@@ -122,7 +126,8 @@ def signin(request):
 
 
             if new_string == pass1:
-                return redirect('accountcreated')
+                #return redirect('accountcreated')
+                return HttpResponseRedirect('%d/editClient'% encrypted_password.id)
             else:
                  return HttpResponse("Bad Credentials. Please reload and Try again")
 
@@ -142,17 +147,13 @@ def accountcreated(request):
 
 #Victoria's Views
 
-def index(request):
-    #return HttpResponse()
-    return HttpResponseRedirect('registration/')
-    #return HttpResponseRedirect(reverse('submitForm'), args)
-
-def formComplete(request):
+def formCliComplete(request, user_id):
     return HttpResponse("Form Submitted, Thanks!")
 
-def submitForm(request):
+def submitCliForm(request, user_id):
     #client_detail = get_object_or_404(Client, pk=user_id)
-    client_detail = Client()
+    user_detail = get_object_or_404(User, pk=user_id)
+    client_detail = Client.objects.get(user=user_detail)
     if request.method == 'POST':
         form = clientForm(request.POST)
         if form.is_valid():
@@ -164,7 +165,7 @@ def submitForm(request):
             client_detail.zip = form.cleaned_data['zipcode']
             client_detail.save()
             return HttpResponseRedirect('complete/') 
-            #return HttpResponseRedirect(reverse('formComplete', args = (user.id)))
+            #return HttpResponseRedirect(reverse('formCliComplete', args = (user.id)))
 
     else:
         form = clientForm()
@@ -176,6 +177,7 @@ def submitForm(request):
 
     return render(request, 'ClientForm.html', context)    
 
+<<<<<<< HEAD
 
 
 
@@ -214,3 +216,12 @@ def submitFuelQuote(request):
     return render(request, 'FuelQuoteForm.html', context)
         
          
+=======
+def fuelHist(request, user_id):
+    #data = fuelQuote.objects.get(user=user_id)
+    # f = {
+    #     "quote_num":data
+    # }
+    # return render_to_response('FuelQuoteHist.html', {'data',data})
+    return render(request, 'FuelQuoteHist.html')
+>>>>>>> e265f6f71540306fa09efe7c756303204fdcd907
