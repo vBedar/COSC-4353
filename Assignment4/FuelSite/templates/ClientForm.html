@@ -30,12 +30,12 @@
   <!---<script src="script.js"></script>--->
   <header>
     <input type="button" class="back" name="back" value="Back">
-    <a href="_" class="logout"> Log Out </a>
+    <a href="{% url 'home' %}" class="logout"> Log Out </a>
   </header>
   <main> 
     <h1>Client Form</h1>
     <p>Fill out the following info</p>
-    <form class="clientForm" method="post" action = "{% url 'submitForm' %}">
+    <form class="clientForm" method="post" action = "">
       {% csrf_token %}
       {{form.as_p}}
       <!-- -Inputs-

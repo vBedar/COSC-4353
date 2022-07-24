@@ -2,10 +2,15 @@ from django.db import models
 from django.contrib.auth.hashers import make_password
 
 
+# The User Model for the UserCredentias Table
+class User(models.Model):
+    username = models.CharField(max_length=15)
+    password = models.CharField(max_length=20)
+
 # The Client Model for the ClientInformation Table
 # UserCredentials and ClientInformation are one-to-one
 class Client (models.Model):
-    #user = models.ForeignKey('User', on_delete = models.RESTRICT)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True, default=None)
     stAddress1 = models.CharField(max_length = 100)
     stAddress2 = models.CharField(max_length = 100, blank=True)
     city = models.CharField(max_length = 100)
@@ -70,7 +75,5 @@ class Client (models.Model):
 
 
 
-class User(models.Model):
-    username = models.CharField(max_length=15)
-    password = models.CharField(max_length=20)
+
     
