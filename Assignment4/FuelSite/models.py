@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 
 
@@ -69,8 +70,21 @@ class Client (models.Model):
 
 
 
-
 class User(models.Model):
     username = models.CharField(max_length=15)
     password = models.CharField(max_length=20)
+
+
+
+class fuelQuote (models.Model):
+    #gallonsRequested = models.CharField(max_length = 100)
+    gallonsRequested = models.IntegerField()
+    deliveryDate = models.DateField() 
+
+    #hardcoded
+    deliveryAddress = models.CharField(max_length = 100)
+    suggestedPrice = models.DecimalField(max_digits = 100, decimal_places = 2)
+    totalAmountDue = models.DecimalField(max_digits = 100, decimal_places = 2)
+    #suggestedPrice = models.CharField(max_length = 100)
+    #totalAmountDue = models.CharField(max_length = 100)
     

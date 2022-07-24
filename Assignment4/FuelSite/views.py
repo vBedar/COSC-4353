@@ -7,6 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 
+from .models import fuelQuote
+from .forms import fuelQuoteForm
 from .models import Client
 from .forms import clientForm
 from .models import User
@@ -14,12 +16,12 @@ from .models import User
 #from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from cryptography.fernet import Fernet
+#from cryptography.fernet import Fernet
 
 #Dhruvs Views
 
 
-key = Fernet.generate_key()
+#key = Fernet.generate_key()
 
 def home(request):
     #return HttpResponse("hello I am working")
@@ -173,3 +175,42 @@ def submitForm(request):
     }
 
     return render(request, 'ClientForm.html', context)    
+
+
+
+
+#Kevin's Views
+
+def index(request):
+    #return render(request, 'FuelQuoteForm.html')
+    return HttpResponseRedirect('quote/')
+
+def fuelQuoteComplete(request):
+    return HttpResponse('Fuel Quote Form Submitted Successfully')
+
+def submitFuelQuote(request):
+    fq = fuelQuote()
+    if request.method == 'POST':
+        form = fuelQuoteForm(request.POST)
+        if form.is_valid():
+            fq.gallonsRequested = form.cleaned_data['gallons_requested']
+            fq.deliveryDate = form.cleaned_data['delivery_date']
+            fq.deliveryAddress = form.cleaned_data['delivery_address']
+            fq.suggestedPrice = form.cleaned_data['suggested_price']
+            fq.totalAmountDue = form.cleaned_data['total_amount_due']
+            fq.save()  
+            return HttpResponseRedirect('complete/')
+            #return HttpResponse('Fuel Quote Form Submitted Successfully')
+    #return HttpResponse('SKIPPED REQUEST.METHOD')
+
+    else:   #if GET (or anything other method)
+        form = fuelQuoteForm()
+
+    context = {
+        'form': form,
+        'fq': fq,
+    }
+
+    return render(request, 'FuelQuoteForm.html', context)
+        
+         

@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import timezone
 
 class clientForm(forms.Form):
     full_name = forms.CharField(label = "Enter your full name", max_length = 50)
@@ -59,3 +60,19 @@ class clientForm(forms.Form):
     ]
     state = forms.ChoiceField(label = "Select your state", choices = STATELIST)
     zipcode = forms.CharField(label = "Enter Your ZipCode", max_length = 9, min_length = 5)
+
+
+
+
+class fuelQuoteForm(forms.Form):
+    #gallons_requested = forms.CharField(initial= "10", required=False)
+    gallons_requested = forms.IntegerField()
+    delivery_date = forms.DateField(initial= timezone.now)
+
+    #hardcoded
+
+    delivery_address = forms.CharField(initial= "333666 assignment street", required=False)
+    suggested_price = forms.DecimalField(initial= "23.50", max_digits = 100, decimal_places = 2)
+    total_amount_due = forms.DecimalField(initial= "55.50", max_digits = 100, decimal_places = 2)
+    #suggested_price = forms.CharField(initial= "25.50", required=False)
+    #total_amount_due = forms.CharField(initial= "50.50", required=False)
