@@ -75,6 +75,9 @@ class ClientTest(TestCase):
         tempresponse = self.client.get('/1/editClient/')
         self.assertEqual(tempresponse.status_code, 200)
         self.assertTemplateUsed(tempresponse, 'ClientForm.html')
+        fuelresponse = self.client.get('/1/QuoteHistory/')
+        self.assertEqual(fuelresponse.status_code, 200)
+        self.assertTemplateUsed(fuelresponse, 'FuelQuoteHist.html')
 
     def test_completeurl(self):
         compresponse = self.client.get('/1/editClient/complete/')
