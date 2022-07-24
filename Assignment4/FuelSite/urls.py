@@ -12,6 +12,7 @@ urlpatterns = [
     path('accountcreated', views.accountcreated, name="accountcreated"),
     #path('registration/', views.submitForm, name = 'submitForm'),
     #path('registration/complete/', views.formComplete, name = 'formComplete'),
+    path('<int:user_id>/QuoteHistory/', views.fuelHist, name="fuelHist"),
     path('<int:user_id>/editClient/', views.submitCliForm, name = 'submitCliForm'),
     path('<int:user_id>/editClient/complete/', views.formCliComplete, name = 'formCliComplete')
 ]

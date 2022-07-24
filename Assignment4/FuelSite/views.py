@@ -124,8 +124,8 @@ def signin(request):
 
 
             if new_string == pass1:
-                return redirect('accountcreated')
-                #return HttpResponseRedirect('%d/editClient'% encrypted_password.id)
+                #return redirect('accountcreated')
+                return HttpResponseRedirect('%d/editClient'% encrypted_password.id)
             else:
                  return HttpResponse("Bad Credentials. Please reload and Try again")
 
@@ -174,3 +174,11 @@ def submitCliForm(request, user_id):
     }
 
     return render(request, 'ClientForm.html', context)    
+
+def fuelHist(request, user_id):
+    #data = fuelQuote.objects.get(user=user_id)
+    # f = {
+    #     "quote_num":data
+    # }
+    # return render_to_response('FuelQuoteHist.html', {'data',data})
+    return render(request, 'FuelQuoteHist.html')
