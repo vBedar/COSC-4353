@@ -74,14 +74,6 @@ class Client (models.Model):
         return self.name
 
 
-
-<<<<<<< HEAD
-class User(models.Model):
-    username = models.CharField(max_length=15)
-    password = models.CharField(max_length=20)
-
-
-
 class fuelQuote (models.Model):
     #gallonsRequested = models.CharField(max_length = 100)
     gallonsRequested = models.IntegerField()
@@ -93,8 +85,8 @@ class fuelQuote (models.Model):
     totalAmountDue = models.DecimalField(max_digits = 100, decimal_places = 2)
     #suggestedPrice = models.CharField(max_length = 100)
     #totalAmountDue = models.CharField(max_length = 100)
-=======
 
 
->>>>>>> e265f6f71540306fa09efe7c756303204fdcd907
+
+
     

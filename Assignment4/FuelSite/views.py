@@ -177,7 +177,6 @@ def submitCliForm(request, user_id):
 
     return render(request, 'ClientForm.html', context)    
 
-<<<<<<< HEAD
 
 
 
@@ -216,7 +215,6 @@ def submitFuelQuote(request):
     return render(request, 'FuelQuoteForm.html', context)
         
          
-=======
 def fuelHist(request, user_id):
     #data = fuelQuote.objects.get(user=user_id)
     # f = {
@@ -224,4 +222,3 @@ def fuelHist(request, user_id):
     # }
     # return render_to_response('FuelQuoteHist.html', {'data',data})
     return render(request, 'FuelQuoteHist.html')
->>>>>>> e265f6f71540306fa09efe7c756303204fdcd907
