@@ -1,11 +1,12 @@
-import datetime
-import decimal
 from django.test import TestCase
 from FuelSite.models import fuelQuote
 from FuelSite.forms import fuelQuoteForm
 from django.urls import reverse, resolve
 from FuelSite.views import index, fuelQuoteComplete, submitFuelQuote
 from django.utils import timezone
+
+import datetime
+import decimal
 
 # Create your tests here.
 class fuelQuoteTestCase(TestCase):
