@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<!--- Victoria Bedar Group 14--->
+
+<!--- Class and ID names for CSS portion and scripting
+  *Back buttons and Log Out have the same class as the other pages
+  *"requestDiv" - class - Div
+  *"quoteTable" - class - table
+  *"request" - class - button
+  --->
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Fuel Quote History</title>
+  {% load static %}
+  <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <!---<script src="script.js"></script>--->
+  <header>
+    <input type="button" class="back" name="back" value="Back">
+    <a href="{% url 'home' %}" class="logout"> Log Out </a>
+  </header>
+  <main> 
+    <table align="center" class="quoteTable">
+      <thead>
+        <tr>
+          <th colspan="5">Fuel Quote History</th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <th># of Gallons</th>
+          <th>Address</th>
+          <th>Date</th>
+          <th>Price per Gallon</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tr>
+        <tbody>
+          <td colspan="5">
+            No Data
+            <!--
+              {% for quote in quote_number %}
+              {{fuelquote.gallons}}
+              {{fuelquote.address}}
+              {{fuelquote.date}}
+              {{fuelquote.pricepergal}}
+              {{fuelquote.total}}
+              {% endfor %}
+            -->
+          </td>
+        </tbody>
+      </tr>
+    </table>
+
+    <div class="requestDiv">
+      <input type="button" class="request" value="Request New Fuel Quote" href="/{{user.id}}/fuelQuote">
+    </div>
+<div class="requestDiv">
+    <a href="/{{user.id}}/editClient" class="editClient">Edit Delivery Address </a>
+</div>
+    
+  </main>
+  <footer>
+    <input type="button" class="back" name="back" value="Back">
+  </footer>
+</body>
+
+</html>

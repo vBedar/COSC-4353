@@ -1,0 +1,73 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.requiredField {
+  color: red;
+}
+
+.clientForm {
+  border-top: double black;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+
+
+.submitButton {
+  position: relative;
+  top: 15px;
+  bottom: 20px;
+}
+
+
+footer {
+  position: relative;
+  top:20px
+}
+
+.logout {
+  float: right;
+}
+
+p{
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: start;
+}
+
+
+
+.fuelQuoteForm {
+  border-top: double black;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+
+.requestDiv{
+  text-align: center;
+  position: relative;
+  top: 15px;
+}
+
+.request{
+  background-color: crimson;
+  color: white;
+  position: relative;
+}
+
+table,td{
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.quoteTable{
+  width: 95%;
+  position: relative;
+  top: 20px
+}
+
+thead, tfoot{
+  background-color: black;
+  color: white;
+}
