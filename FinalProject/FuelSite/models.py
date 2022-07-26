@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 
 # The User Model for the UserCredentias Table
 class User(models.Model):
-    username = models.CharField(max_length=15)
+    username = models.CharField(max_length=15, unique=True) #Added unique constraint as a user with the same username and password might bringg up the wring ID ~ Victoria
     password = models.CharField(max_length=20)
 
 # The Client Model for the ClientInformation Table
@@ -76,8 +76,9 @@ class Client (models.Model):
 
 class fuelQuote (models.Model):
     #gallonsRequested = models.CharField(max_length = 100)
-    gallonsRequested = models.IntegerField()
-    deliveryDate = models.DateField() 
+    user = models.ForeignKey(User, on_delete = models.CASCADE) #I added a foreign key for this model as it's a many-to-one relationship ~Victoria
+    gallonsRequested = models.PositiveIntegerField() #Changed the field to one that only accepts positive values ~ Victoria
+    deliveryDate = models.DateField() #Will need an extra validation to make sure the delivery date isn't in the past ~ Victoria
 
     #hardcoded
     deliveryAddress = models.CharField(max_length = 100)
@@ -86,7 +87,25 @@ class fuelQuote (models.Model):
     #suggestedPrice = models.CharField(max_length = 100)
     #totalAmountDue = models.CharField(max_length = 100)
 
+    #Total Price module 
+    def get_total_price(self):
+        #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
+        currentprice = 1.50
+        companyProfit = .1
+        if self.deliveryAddress == 'TX' # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
+            location = .02
+        else
+            location = .04
 
+        #A way to determine if the client has history probably by quereing the foreign key
 
+        if self.gallonsRequested > 1000
+            gallonFactor = .02
+        else
+            gallonFactor = .03
+
+        margin = (location - history + gallonFactor + companyProfit)*currentprice
+        self.suggestedPrice = currentprice + margin
+        self.totalAmountDue = self.gallonsRequested*self.suggestedPrice
 
     
