@@ -58,10 +58,10 @@
     </table>
 
     <div class="requestDiv">
-      <input type="button" class="request" value="Request New Fuel Quote" href="/{{user.id}}/fuelQuote">
+      <input type="button" class="request" value="Request New Fuel Quote" href="{% url 'submitFuelQuote' user_id %}">
     </div>
 <div class="requestDiv">
-    <a href="/{{user.id}}/editClient" class="editClient">Edit Delivery Address </a>
+    <a href="{% url 'submitCliForm' user_id %}" class="editClient">Edit Delivery Address </a>
 </div>
     
   </main>

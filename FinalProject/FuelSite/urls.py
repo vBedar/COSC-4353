@@ -17,8 +17,8 @@ urlpatterns = [
     # path('<int:user_id>/registration/complete/', views.formComplete, name = 'formComplete'),
     
     #path('', views.index, name='index'),
-    path('quote/', views.submitFuelQuote, name='submitFuelQuote'),
-    path('quote/complete/', views.fuelQuoteComplete, name='fuelQuoteComplete'),
+    path('<int:user_id>/quote/', views.submitFuelQuote, name='submitFuelQuote'),
+    path('<int:user_id>/quote/complete/', views.fuelQuoteComplete, name='fuelQuoteComplete'),
 
  
 

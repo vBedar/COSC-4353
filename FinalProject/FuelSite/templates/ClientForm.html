@@ -29,13 +29,13 @@
 <body>
   <!---<script src="script.js"></script>--->
   <header>
-    <input type="button" class="back" name="back" value="Back">
+    <input type="button" class="back" name="back" value="Back" href="{% url 'fuelHist' client_detail.user_id %}">
     <a href="{% url 'home' %}" class="logout"> Log Out </a>
   </header>
   <main> 
     <h1>Client Form</h1>
     <p>Fill out the following info</p>
-    <form class="clientForm" method="post" action = "">
+    <form class="clientForm" method="post" action = "{% url 'submitCliForm' client_detail.user_id %}">
       {% csrf_token %}
       {{form.as_p}}
       <!-- -Inputs-
@@ -125,7 +125,7 @@
     
   </main>
   <footer>
-    <input type="button" class="back" name="back" value="Back">
+    <input type="button" class="back" name="back" value="Back" href="{% url 'fuelHist' client_detail.user_id %}">
   </footer>
 </body>
 

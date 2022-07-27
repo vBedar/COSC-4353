@@ -13,7 +13,7 @@ class User(models.Model):
 class Client (models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True, default=None)
     stAddress1 = models.CharField(max_length = 100)
-    stAddress2 = models.CharField(max_length = 100, blank=True)
+    stAddress2 = models.CharField(max_length = 100, blank=True, null=True)
     city = models.CharField(max_length = 100)
     STATES = [
         ('AL', 'Alabama'),
@@ -92,16 +92,16 @@ class fuelQuote (models.Model):
         #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
         currentprice = 1.50
         companyProfit = .1
-        if self.deliveryAddress == 'TX' # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
+        if self.deliveryAddress == 'TX': # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
             location = .02
-        else
+        else:
             location = .04
 
         #A way to determine if the client has history probably by quereing the foreign key
 
-        if self.gallonsRequested > 1000
+        if self.gallonsRequested > 1000:
             gallonFactor = .02
-        else
+        else:
             gallonFactor = .03
 
         margin = (location - history + gallonFactor + companyProfit)*currentprice

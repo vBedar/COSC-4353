@@ -127,7 +127,7 @@ def signin(request):
 
             if new_string == pass1:
                 #return redirect('accountcreated')
-                return HttpResponseRedirect('%d/editClient'% encrypted_password.id)
+                return HttpResponseRedirect('%d/QuoteHistory'% encrypted_password.id)
             else:
                  return HttpResponse("Bad Credentials. Please reload and Try again")
 
@@ -164,7 +164,7 @@ def submitCliForm(request, user_id):
             client_detail.state = form.cleaned_data['state']
             client_detail.zip = form.cleaned_data['zipcode']
             client_detail.save()
-            return HttpResponseRedirect('complete/') 
+            return HttpResponseRedirect('/%d/QuoteHistory'% user_id) 
             #return HttpResponseRedirect(reverse('formCliComplete', args = (user.id)))
 
     else:
@@ -183,7 +183,10 @@ def fuelHist(request, user_id):
     #     "quote_num":data
     # }
     # return render_to_response('FuelQuoteHist.html', {'data',data})
-    return render(request, 'FuelQuoteHist.html')
+    context = {
+        'user_id': user_id,
+    }
+    return render(request, 'FuelQuoteHist.html', context)
 
 
 
@@ -194,10 +197,10 @@ def index(request):
     #return render(request, 'FuelQuoteForm.html')
     return HttpResponseRedirect('quote/')
 
-def fuelQuoteComplete(request):
+def fuelQuoteComplete(request, user_id):
     return HttpResponse('Fuel Quote Form Submitted Successfully')
 
-def submitFuelQuote(request):
+def submitFuelQuote(request, user_id):
     fq = fuelQuote()
     if request.method == 'POST':
         form = fuelQuoteForm(request.POST)
