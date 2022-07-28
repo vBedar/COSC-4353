@@ -43,7 +43,7 @@ class ClientTest(TestCase):
         self.assertEqual(dave.stAddress1, "3333 Nowhere st.")
         self.assertEqual(betty.stAddress1, "444 None ave.")
         #address2
-        self.assertEqual(dave.stAddress2, "")
+        self.assertEqual(dave.stAddress2, None)
         self.assertEqual(betty.stAddress2, "3234 h bl.")
         #state
         self.assertEqual(dave.state, "TX")
