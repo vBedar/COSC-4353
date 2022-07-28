@@ -20,7 +20,7 @@
 <body>
   <!---<script src="script.js"></script>--->
   <header>
-    <input type="button" class="back" name="back" value="Back">
+    <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
     <a href="{% url 'home' %}" class="logout"> Log Out </a>
   </header>
   <main> 
@@ -58,7 +58,7 @@
     </table>
 
     <div class="requestDiv">
-      <input type="button" class="request" value="Request New Fuel Quote" href="{% url 'submitFuelQuote' user_id %}">
+      <input type="button" class="request" value="Request New Fuel Quote" onclick="location.href='{% url 'submitFuelQuote' user_id %}';">
     </div>
 <div class="requestDiv">
     <a href="{% url 'submitCliForm' user_id %}" class="editClient">Edit Delivery Address </a>
@@ -66,7 +66,7 @@
     
   </main>
   <footer>
-    <input type="button" class="back" name="back" value="Back">
+    <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
   </footer>
 </body>
 

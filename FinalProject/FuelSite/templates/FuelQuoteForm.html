@@ -20,7 +20,7 @@
         <h1>Fuel Quote Form</h1>
         <p>Fill out the following info</p>
         <form class="fuelQuoteForm" method="post" action=""> 
-            <!-- {% url 'submitFuelQuote' %} -->
+            
         {% csrf_token %}
         {{form.as_p}}
             <!---Inputs--->

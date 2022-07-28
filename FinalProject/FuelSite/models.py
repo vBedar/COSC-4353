@@ -92,12 +92,17 @@ class fuelQuote (models.Model):
         #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
         currentprice = 1.50
         companyProfit = .1
-        if self.deliveryAddress == 'TX': # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
+        if self.deliveryAddress.find('TX') != -1: # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
             location = .02
         else:
             location = .04
 
         #A way to determine if the client has history probably by quereing the foreign key
+        count = fuelQuote.objects.filter(user=self.user).count()
+        if count > 1:
+            history = .01
+        else:
+            history = 0
 
         if self.gallonsRequested > 1000:
             gallonFactor = .02

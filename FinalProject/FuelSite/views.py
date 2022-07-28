@@ -201,15 +201,18 @@ def fuelQuoteComplete(request, user_id):
     return HttpResponse('Fuel Quote Form Submitted Successfully')
 
 def submitFuelQuote(request, user_id):
+    user_detail = get_object_or_404(User, pk=user_id)
     fq = fuelQuote()
     if request.method == 'POST':
         form = fuelQuoteForm(request.POST)
         if form.is_valid():
+            fq.user = user_detail
             fq.gallonsRequested = form.cleaned_data['gallons_requested']
             fq.deliveryDate = form.cleaned_data['delivery_date']
             fq.deliveryAddress = form.cleaned_data['delivery_address']
-            fq.suggestedPrice = form.cleaned_data['suggested_price']
-            fq.totalAmountDue = form.cleaned_data['total_amount_due']
+            fq.get_total_price()
+            #fq.suggestedPrice = form.cleaned_data['suggested_price']
+            #fq.totalAmountDue = form.cleaned_data['total_amount_due']
             fq.save()  
             return HttpResponseRedirect('complete/')
             #return HttpResponse('Fuel Quote Form Submitted Successfully')

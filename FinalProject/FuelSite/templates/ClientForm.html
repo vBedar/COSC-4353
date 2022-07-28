@@ -29,7 +29,7 @@
 <body>
   <!---<script src="script.js"></script>--->
   <header>
-    <input type="button" class="back" name="back" value="Back" href="{% url 'fuelHist' client_detail.user_id %}">
+    <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
     <a href="{% url 'home' %}" class="logout"> Log Out </a>
   </header>
   <main> 
@@ -125,7 +125,7 @@
     
   </main>
   <footer>
-    <input type="button" class="back" name="back" value="Back" href="{% url 'fuelHist' client_detail.user_id %}">
+    <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
   </footer>
 </body>
 
