@@ -39,22 +39,24 @@
           <th>Total Price</th>
         </tr>
       </thead>
+      {% for item in data %}
       <tr>
         <tbody>
-          <td colspan="5">
-            No Data
-            <!--
-              {% for quote in quote_number %}
-              {{fuelquote.gallons}}
-              {{fuelquote.address}}
-              {{fuelquote.date}}
-              {{fuelquote.pricepergal}}
-              {{fuelquote.total}}
-              {% endfor %}
-            -->
-          </td>
+          
+            <!---No Data-->
+            
+              
+              <td>{{item.gallonsRequested}}</td>
+              <td>{{item.deliveryAddress}}</td>
+              <td>{{item.deliveryDate}}</td>
+              <td>{{item.suggestedPrice}}</td>
+              <td>{{item.totalAmountDue}}</td>
+              
+           
+          
         </tbody>
       </tr>
+      {% endfor %}
     </table>
 
     <div class="requestDiv">

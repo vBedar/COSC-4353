@@ -179,14 +179,16 @@ def submitCliForm(request, user_id):
 
 def fuelHist(request, user_id):
     #data = fuelQuote.objects.get(user=user_id)
-    # f = {
-    #     "quote_num":data
-    # }
-    # return render_to_response('FuelQuoteHist.html', {'data',data})
+    data = fuelQuote.objects.filter(user=user_id)
     context = {
-        'user_id': user_id,
+         'data':data,
+         'user_id': user_id,
     }
     return render(request, 'FuelQuoteHist.html', context)
+    # context = {
+    #     'user_id': user_id,
+    # }
+    # return render(request, 'FuelQuoteHist.html', context)
 
 
 
