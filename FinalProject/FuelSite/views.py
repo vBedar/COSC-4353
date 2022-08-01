@@ -13,15 +13,15 @@ from .models import Client
 from .forms import clientForm
 from .models import User
 
-#from django.contrib.auth.models import User
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-#from cryptography.fernet import Fernet
+from passlib.hash import pbkdf2_sha256
 
 #Dhruvs Views
 
 
-#key = Fernet.generate_key()
+
 
 def home(request):
     #return HttpResponse("hello I am working")
@@ -69,19 +69,19 @@ def signup(request):
         user_object = User()
         user_object.username = username
 
-        new_string = ""
+        # new_string = ""
 
-        for i in range(len(pass1)):
-            char = pass1[i]
-            char_value = ord(char)
-            new_char_value = char_value + 3
-            new_char = chr(new_char_value)
-            new_string = new_string + new_char
+        # for i in range(len(pass1)):
+        #     char = pass1[i]
+        #     char_value = ord(char)
+        #     new_char_value = char_value + 3
+        #     new_char = chr(new_char_value)
+        #     new_string = new_string + new_char
 
+        # user_object.password = new_string
 
-
-
-        user_object.password = new_string
+        enc_password = pbkdf2_sha256.encrypt(pass1)
+        user_object.password = enc_password
         
         user_object.save()
 
@@ -113,24 +113,30 @@ def signin(request):
 
         if User.objects.filter(username=user_username).first() is not None:
             
-            encrypted_password = User.objects.get(username=user_username)
+            current_User = User.objects.get(username=user_username)
 
-            new_string = ""
+            # new_string = ""
 
-            for i in range(len(encrypted_password.password)):
-                char = encrypted_password.password[i]
-                char_value = ord(char)
-                new_char_value = char_value - 3
-                new_char = chr(new_char_value)
-                new_string = new_string + new_char
+            # for i in range(len(encrypted_password.password)):
+            #     char = encrypted_password.password[i]
+            #     char_value = ord(char)
+            #     new_char_value = char_value - 3
+            #     new_char = chr(new_char_value)
+            #     new_string = new_string + new_char
 
 
-            if new_string == pass1:
-                #return redirect('accountcreated')
-                return HttpResponseRedirect('%d/QuoteHistory'% encrypted_password.id)
+            # if new_string == pass1:
+            #     return redirect('accountcreated')
+            #     #return HttpResponseRedirect('%d/editClient'% encrypted_password.id)
+            # else:
+            #      return HttpResponse("Bad Credentials. Please reload and Try again")
+
+            if current_User.verify_password(pass1):
+                return redirect('accountcreated')
+            
             else:
-                 return HttpResponse("Bad Credentials. Please reload and Try again")
-
+                return HttpResponse("Bad Credentials. Please reload and Try again")
+                
         else:
             messages.error(request, "Bad Credentials")
             return redirect('home')

@@ -1,12 +1,15 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.hashers import make_password
+from passlib.hash import pbkdf2_sha256
 
 
 # The User Model for the UserCredentias Table
 class User(models.Model):
-    username = models.CharField(max_length=15, unique=True) #Added unique constraint as a user with the same username and password might bringg up the wring ID ~ Victoria
-    password = models.CharField(max_length=20)
+    username = models.CharField(max_length=15)
+    password = models.CharField(max_length=256)
+
+    def verify_password(self, raw_password):
+        return pbkdf2_sha256.verify(raw_password, self.password)
 
 # The Client Model for the ClientInformation Table
 # UserCredentials and ClientInformation are one-to-one
