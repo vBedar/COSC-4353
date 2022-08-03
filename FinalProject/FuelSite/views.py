@@ -201,39 +201,85 @@ def fuelHist(request, user_id):
 
 #Kevin's Views
 
-def index(request):
-    #return render(request, 'FuelQuoteForm.html')
-    return HttpResponseRedirect('quote/')
+# def index(request):
+#     #return render(request, 'FuelQuoteForm.html')
+#     return HttpResponseRedirect('quote/')
 
 def fuelQuoteComplete(request, user_id):
     return HttpResponse('Fuel Quote Form Submitted Successfully')
 
+
 def submitFuelQuote(request, user_id):
     user_detail = get_object_or_404(User, pk=user_id)
+    client_detail = Client.objects.get(user=user_detail)
     fq = fuelQuote()
-    if request.method == 'POST':
-        form = fuelQuoteForm(request.POST)
-        if form.is_valid():
-            fq.user = user_detail
-            fq.gallonsRequested = form.cleaned_data['gallons_requested']
-            fq.deliveryDate = form.cleaned_data['delivery_date']
-            fq.deliveryAddress = form.cleaned_data['delivery_address']
-            fq.get_total_price()
-            #fq.suggestedPrice = form.cleaned_data['suggested_price']
-            #fq.totalAmountDue = form.cleaned_data['total_amount_due']
-            fq.save()  
-            return HttpResponseRedirect('complete/')
-            #return HttpResponse('Fuel Quote Form Submitted Successfully')
-    #return HttpResponse('SKIPPED REQUEST.METHOD')
+    fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
+    form = fuelQuoteForm(request.POST)
+    checks = true
 
+    if request.method == 'POST':
+        if 'get_quote' in request.POST:
+            if form.is_valid():
+                fq.user = user_detail
+                fq.gallonsRequested = form.cleaned_data['gallons_requested']
+                fq.deliveryDate = form.cleaned_data['delivery_date']
+                fq.get_total_price()
+    
+        if 'submit_quote' in request.POST:
+            if form.is_valid():
+                fq.user = user_detail
+                fq.gallonsRequested = form.cleaned_data['gallons_requested']
+                fq.deliveryDate = form.cleaned_data['delivery_date']
+                fq.get_total_price()
+                fq.save()
+                return HttpResponseRedirect('/%d/QuoteHistory'% user_id)
+                #return HttpResponse('Form Saved')
+                #return HttpResponseRedirect('complete/')
+                #return HttpResponseRedirect('/%d/quote/created/'% user_id)
     else:   #if GET (or anything other method)
         form = fuelQuoteForm()
 
     context = {
         'form': form,
         'fq': fq,
+        'client_detail': client_detail,
+        'user_id': user_id,
     }
 
     return render(request, 'FuelQuoteForm.html', context)
+
+
+#ajax attempts
+
+# def created(request, user_id):
+#     fq = fuelQuote()
+#     fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
+
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             fq.gallonsRequested = request.POST['fq.gallonsRequested']
+#             fq.deliveryAddress = request.POST['fq.deliveryAddress']
+#             fq.get_total_price()
+#             # fq.save()
+#             return HttpResponse('create success')
+
+#def testFunction(request, user_id):
+    #return HttpResponse('Test Function Called')
+    # user_detail = get_object_or_404(User, pk=user_id)
+    # client_detail = Client.objects.get(user=user_detail)
+    # fq = fuelQuote()
+    # fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
+
+    # if request.method == 'POST':
+    #     form = fuelQuoteForm(request.POST)
+    #     if form.is_valid():
+    #         fq.user = user_detail
+    #         fq.gallonsRequested = form.cleaned_data['gallons_requested']
+    #         fq.deliveryDate = form.cleaned_data['delivery_date']
+    #         fq.get_total_price()
+    #         return HttpResponse('Return data to ajax call')
+
+    
         
+         
          

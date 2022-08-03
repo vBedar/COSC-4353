@@ -3,6 +3,7 @@
     <!-- Kevin Hance Group 14-->
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Fuel Quote Form</title>
@@ -12,14 +13,14 @@
 
 <body>
     <header>
-        <input type="button" class="back" name="back" value="Back">
+        <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
         <a href="_" class="logout"> Log Out </a>
     </header>
 
     <main>
         <h1>Fuel Quote Form</h1>
         <p>Fill out the following info</p>
-        <form class="fuelQuoteForm" method="post" action=""> 
+        <form id="fuel_quote_form" class="fuelQuoteForm" method="POST" action=""> 
             
         {% csrf_token %}
         {{form.as_p}}
@@ -28,37 +29,81 @@
                 <label for="gallons_requested">Gallons Requested</label>
                 <input type="number" id="gallons_requested" name="Gallons Requested"><sup><abbr title="This is required"
                         class="requiredField">*</abbr></sup>
-            </div>
+            </div> -->
             <div>
                 <label for="delivery_address">Delivery Address</label>
-                <input id="delivery_address" name="delivery_address" placeholder="Delivery Address" readonly>
+                <input id="delivery_address" name="delivery_address" value="{{ fq.deliveryAddress }}" readonly size="40"><br>
             </div>
-            <div>
+
+            <!-- <div>
                 <label for="delivery_date">Delivery Date</label>
                 <input type="date" id="delivery_date" name="delivery_date">
-            </div>
+            </div> -->
             <div>
                 <label for="suggested_price">Suggested Price / Gallon</label>
-                <input id="suggested_price" name="suggested_price" readonly
+                <input id="suggested_price" name="suggested_price"  placeholder="Get Quote to Calculate" value="{{ fq.suggestedPrice }}" readonly><br>
             </div>
             <div>
                 <label for="total_amount_due">Total Amount Due</label>
-                <input id="total_amount_due" name="total_amount_due" readonly>
-            </div> -->
-
-
-            <div class="submitButton">
-                <input type="submit" class="btn btn-primary" value="submit">
+                <input id="total_amount_due" name="total_amount_due" placeholder="Get Quote to Calculate" value="{{ fq.totalAmountDue }}" readonly><br>
             </div>
 
+
+
+            <div class="getQuoteButton">
+                <input id='button' type="submit" class="btn btn-primary" value="Get Quote" name="get_quote">
+            </div>
+
+            <div class="submitButton">
+                <input id='submit_button' type="submit" class="btn btn-primary" value="Submit" name="submit_quote"/>
+            </div>
+            
+
         </form>
+
 
     </main>
 
     <footer>
-        <input type="button" class="back" name="back" value="Back">
+        <input type="button" class="back" name="back" value="Back" onclick = "history.back()">
     </footer>
 
 </body>
+
+<!-- 
+DISABLE BUTTON
+<script type="text/javascript">
+    function verify(){
+        if(document.getElementById("suggested_price").value == ""){ 
+            document.getElementById('submit_button').disabled = true; 
+        } else { 
+            document.getElementById('submit_button').disabled = false;
+        }
+    }
+    
+
+</script> -->
+
+<!-- <script type="text/javascript">
+    $(document).on('button','#fuel_quote_form',function(e){
+        //e.preventDefault();
+        // delivery_address = fq.deliveryAddress
+        // gallons_requested = fq.gallonsRequested
+        $.ajax({
+            type: 'POST',
+            url:'<int:user_id>/quote/', //url that will be taking/submitting the data
+            data:{
+                gallonsRequested:$('#gallons_requested').val(),
+                deliveryAddress:$('#delivery_address').val(),
+
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val,
+            }, 
+            success: function(){
+                alert("Suggested Price Calculated!");
+            }
+        });
+    });
+</script> -->
+
 
 </html>

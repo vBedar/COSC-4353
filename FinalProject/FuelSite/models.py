@@ -85,16 +85,15 @@ class fuelQuote (models.Model):
 
     #hardcoded
     deliveryAddress = models.CharField(max_length = 100)
-    suggestedPrice = models.DecimalField(max_digits = 100, decimal_places = 2)
-    totalAmountDue = models.DecimalField(max_digits = 100, decimal_places = 2)
-    #suggestedPrice = models.CharField(max_length = 100)
-    #totalAmountDue = models.CharField(max_length = 100)
+    suggestedPrice = models.DecimalField(max_digits = 100, decimal_places = 2, default="", null=True, blank=True)
+    totalAmountDue = models.DecimalField(max_digits = 100, decimal_places = 2, default="", null=True, blank=True)
 
     #Total Price module 
+
     def get_total_price(self):
         #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
         currentprice = 1.50
-        companyProfit = .1
+        companyProfit = .10
         if self.deliveryAddress.find('TX') != -1: # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
             location = .02
         else:
@@ -106,14 +105,16 @@ class fuelQuote (models.Model):
             history = .01
         else:
             history = 0
-
+    
         if self.gallonsRequested > 1000:
             gallonFactor = .02
         else:
             gallonFactor = .03
 
         margin = (location - history + gallonFactor + companyProfit)*currentprice
-        self.suggestedPrice = currentprice + margin
-        self.totalAmountDue = self.gallonsRequested*self.suggestedPrice
+        self.suggestedPrice = round(currentprice + margin, 2)
+        self.totalAmountDue = round(self.gallonsRequested*self.suggestedPrice, 2)
+
+        
 
     

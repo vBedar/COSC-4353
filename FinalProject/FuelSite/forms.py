@@ -1,6 +1,7 @@
 from django import forms
 from django.utils import timezone
 
+
 class clientForm(forms.Form):
     full_name = forms.CharField(label = "Enter your full name", max_length = 50)
     address_1 = forms.CharField(label = "Enter your primary steert address", max_length = 100)
@@ -65,14 +66,38 @@ class clientForm(forms.Form):
 
 
 class fuelQuoteForm(forms.Form):
-    #gallons_requested = forms.CharField(initial= "10", required=False)
     gallons_requested = forms.IntegerField()
-    delivery_date = forms.DateField(initial= timezone.now)
+    delivery_date = forms.DateField(initial= timezone.now, widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    #delivery_address = forms.CharField(initial= )
 
     #hardcoded
-
-    delivery_address = forms.CharField(initial= "333666 assignment street", required=False)
-    suggested_price = forms.DecimalField(initial= "23.50", max_digits = 100, decimal_places = 2)
-    total_amount_due = forms.DecimalField(initial= "55.50", max_digits = 100, decimal_places = 2)
+    
+    #suggested_price = forms.DecimalField(initial= "0", max_digits = 100, decimal_places = 2, required= False, widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    #total_amount_due = forms.DecimalField(initial= "0", max_digits = 100, decimal_places = 2, required= False, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     #suggested_price = forms.CharField(initial= "25.50", required=False)
     #total_amount_due = forms.CharField(initial= "50.50", required=False)
+
+    def get_total_price(self):
+        #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
+        currentprice = 1.50
+        companyProfit = .10
+        if self.deliveryAddress.find('TX') != -1: # not sure how to single out the state yet maybe have the delivery address be composed of 3 different fields? ~ Victoria
+            location = .02
+        else:
+            location = .04
+
+        #A way to determine if the client has history probably by quereing the foreign key
+        count = fuelQuote.objects.filter(user=self.user).count()
+        if count > 1:
+            history = .01
+        else:
+            history = 0
+    
+        if self.gallonsRequested > 1000:
+            gallonFactor = .02
+        else:
+            gallonFactor = .03
+
+        margin = (location - history + gallonFactor + companyProfit)*currentprice
+        self.suggestedPrice = round(currentprice + margin, 2)
+        self.totalAmountDue = round(self.gallonsRequested*self.suggestedPrice, 2)
