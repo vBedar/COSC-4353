@@ -87,8 +87,8 @@ def signup(request):
 
 
         #making a new client object that corresponds with User
-        new_Client = Client.objects.create(user=user_object)
-        new_Client.save()
+        #new_Client = Client.objects.create(user=user_object)
+        #new_Client.save()
 
         messages.success(request, "Your Account has been successfully created.")
 
@@ -132,7 +132,11 @@ def signin(request):
             #      return HttpResponse("Bad Credentials. Please reload and Try again")
 
             if current_User.verify_password(pass1):
-                return redirect('accountcreated')
+                #return redirect('accountcreated')
+                if Client.objects.filter(user = current_User).exists():
+                    return HttpResponseRedirect('%d/QuoteHistory'% current_User.id)
+                else:
+                    return HttpResponseRedirect('%d/editClient'% current_User.id)
             
             else:
                 return HttpResponse("Bad Credentials. Please reload and Try again")
@@ -159,7 +163,11 @@ def formCliComplete(request, user_id):
 def submitCliForm(request, user_id):
     #client_detail = get_object_or_404(Client, pk=user_id)
     user_detail = get_object_or_404(User, pk=user_id)
-    client_detail = Client.objects.get(user=user_detail)
+    if Client.objects.filter(user = user_detail).exists():
+        client_detail = get_object_or_404(Client, pk=user_detail)
+    else:
+        client_detail = Client(user=user_detail)
+    
     if request.method == 'POST':
         form = clientForm(request.POST)
         if form.is_valid():
