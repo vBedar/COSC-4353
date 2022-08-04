@@ -1,10 +1,7 @@
 from django import forms
 from django.utils import timezone
-<<<<<<< HEAD
 from .models import Client
-=======
 from django.core.exceptions import ValidationError
->>>>>>> 121bd96fa0563835308d371fff8c1b7c591e1fa8
 
 
 class clientForm(forms.Form):
