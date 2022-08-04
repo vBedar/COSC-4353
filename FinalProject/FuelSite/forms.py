@@ -1,5 +1,6 @@
 from django import forms
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class clientForm(forms.Form):
@@ -63,19 +64,14 @@ class clientForm(forms.Form):
     zipcode = forms.CharField(label = "Enter Your ZipCode", max_length = 9, min_length = 5)
 
 
-
+def validate_date(deliveryDate):
+     if deliveryDate < timezone.now().date():
+        raise ValidationError("Date cannot be in the past")
 
 class fuelQuoteForm(forms.Form):
     gallons_requested = forms.IntegerField()
-    delivery_date = forms.DateField(initial= timezone.now, widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    #delivery_address = forms.CharField(initial= )
+    delivery_date = forms.DateField(initial= timezone.now, widget=forms.widgets.DateInput(attrs={'type': 'date'}), validators=[validate_date])
 
-    #hardcoded
-    
-    #suggested_price = forms.DecimalField(initial= "0", max_digits = 100, decimal_places = 2, required= False, widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    #total_amount_due = forms.DecimalField(initial= "0", max_digits = 100, decimal_places = 2, required= False, widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    #suggested_price = forms.CharField(initial= "25.50", required=False)
-    #total_amount_due = forms.CharField(initial= "50.50", required=False)
 
     def get_total_price(self):
         #Margin = currentprice(1.50) * (location(in or out of state) - history factor(client has history) + gallons requested(over or under 1000) + company profit (10%))
