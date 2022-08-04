@@ -1,12 +1,13 @@
 from django import forms
 from django.utils import timezone
+from .models import Client
 
 
 class clientForm(forms.Form):
-    full_name = forms.CharField(label = "Enter your full name", max_length = 50)
-    address_1 = forms.CharField(label = "Enter your primary steert address", max_length = 100)
-    address_2 = forms.CharField(label = "Enter your secondary steert address", max_length = 100, required = False)
-    city = forms.CharField(label = "Enter your city", max_length = 100)
+    full_name = forms.CharField(label = "Enter your full name", max_length = 50, initial = "")
+    address_1 = forms.CharField(label = "Enter your primary street address", max_length = 100, initial = "")
+    address_2 = forms.CharField(label = "Enter your secondary street address", max_length = 100, required = False, initial="")
+    city = forms.CharField(label = "Enter your city", max_length = 100, initial="")
     STATELIST = [
         ('AL', 'Alabama'),
         ('AK', 'Alaska'),
@@ -59,8 +60,9 @@ class clientForm(forms.Form):
         ('WI', 'Wisconsin'),
         ('WY', 'Wyoming'),
     ]
-    state = forms.ChoiceField(label = "Select your state", choices = STATELIST)
-    zipcode = forms.CharField(label = "Enter Your ZipCode", max_length = 9, min_length = 5)
+    state = forms.ChoiceField(label = "Select your state", choices = STATELIST, initial = "TX")
+    zipcode = forms.CharField(label = "Enter Your ZipCode", max_length = 9, min_length = 5, initial = "")
+
 
 
 

@@ -15,6 +15,7 @@ class User(models.Model):
 # UserCredentials and ClientInformation are one-to-one
 class Client (models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True, default=None)
+    name = models.CharField(max_length = 50)
     stAddress1 = models.CharField(max_length = 100)
     stAddress2 = models.CharField(max_length = 100, blank=True, null=True)
     city = models.CharField(max_length = 100)
@@ -71,7 +72,6 @@ class Client (models.Model):
         ('WY', 'Wyoming'), 
     ]
     state = models.CharField(max_length = 2, choices=STATES)
-    name = models.CharField(max_length = 50)
     zip = models.CharField(max_length = 9)
     def __str__(self):
         return self.name

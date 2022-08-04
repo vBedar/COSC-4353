@@ -161,15 +161,16 @@ def formCliComplete(request, user_id):
     return HttpResponse("Form Submitted, Thanks!")
 
 def submitCliForm(request, user_id):
-    #client_detail = get_object_or_404(Client, pk=user_id)
     user_detail = get_object_or_404(User, pk=user_id)
     if Client.objects.filter(user = user_detail).exists():
         client_detail = get_object_or_404(Client, pk=user_detail)
+        data = {'full_name':client_detail.name, 'address_1':client_detail.stAddress1, 'address_2':client_detail.stAddress2, 'state':client_detail.state, 'city':client_detail.city, 'zipcode':client_detail.zip }
     else:
         client_detail = Client(user=user_detail)
+        data = {'full_name':"", 'address_1':"", 'address_2':"", 'state':"TX", 'city':"", 'zipcode':"" }
     
     if request.method == 'POST':
-        form = clientForm(request.POST)
+        form = clientForm(request.POST, initial = data)
         if form.is_valid():
             client_detail.name = form.cleaned_data['full_name']
             client_detail.stAddress1 = form.cleaned_data['address_1']
@@ -179,10 +180,9 @@ def submitCliForm(request, user_id):
             client_detail.zip = form.cleaned_data['zipcode']
             client_detail.save()
             return HttpResponseRedirect('/%d/QuoteHistory'% user_id) 
-            #return HttpResponseRedirect(reverse('formCliComplete', args = (user.id)))
 
     else:
-        form = clientForm()
+        form = clientForm(initial = data)
 
     context = {
         'form': form,
