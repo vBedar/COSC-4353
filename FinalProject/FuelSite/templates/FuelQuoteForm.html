@@ -70,40 +70,6 @@
 
 </body>
 
-<!-- 
-DISABLE BUTTON
-<script type="text/javascript">
-    function verify(){
-        if(document.getElementById("suggested_price").value == ""){ 
-            document.getElementById('submit_button').disabled = true; 
-        } else { 
-            document.getElementById('submit_button').disabled = false;
-        }
-    }
-    
-
-</script> -->
-
-<!-- <script type="text/javascript">
-    $(document).on('button','#fuel_quote_form',function(e){
-        //e.preventDefault();
-        // delivery_address = fq.deliveryAddress
-        // gallons_requested = fq.gallonsRequested
-        $.ajax({
-            type: 'POST',
-            url:'<int:user_id>/quote/', //url that will be taking/submitting the data
-            data:{
-                gallonsRequested:$('#gallons_requested').val(),
-                deliveryAddress:$('#delivery_address').val(),
-
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val,
-            }, 
-            success: function(){
-                alert("Suggested Price Calculated!");
-            }
-        });
-    });
-</script> -->
 
 
 </html>

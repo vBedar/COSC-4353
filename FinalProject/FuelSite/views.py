@@ -205,13 +205,7 @@ def fuelHist(request, user_id):
     # return render(request, 'FuelQuoteHist.html', context)
 
 
-
-
 #Kevin's Views
-
-# def index(request):
-#     #return render(request, 'FuelQuoteForm.html')
-#     return HttpResponseRedirect('quote/')
 
 def fuelQuoteComplete(request, user_id):
     return HttpResponse('Fuel Quote Form Submitted Successfully')
@@ -240,9 +234,7 @@ def submitFuelQuote(request, user_id):
                 fq.get_total_price()
                 fq.save()
                 return HttpResponseRedirect('/%d/QuoteHistory'% user_id)
-                #return HttpResponse('Form Saved')
-                #return HttpResponseRedirect('complete/')
-                #return HttpResponseRedirect('/%d/quote/created/'% user_id)
+
     else:   #if GET (or anything other method)
         form = fuelQuoteForm()
 
@@ -256,35 +248,6 @@ def submitFuelQuote(request, user_id):
     return render(request, 'FuelQuoteForm.html', context)
 
 
-#ajax attempts
-
-# def created(request, user_id):
-#     fq = fuelQuote()
-#     fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
-
-#     if request.method == 'POST':
-#         if form.is_valid():
-#             fq.gallonsRequested = request.POST['fq.gallonsRequested']
-#             fq.deliveryAddress = request.POST['fq.deliveryAddress']
-#             fq.get_total_price()
-#             # fq.save()
-#             return HttpResponse('create success')
-
-#def testFunction(request, user_id):
-    #return HttpResponse('Test Function Called')
-    # user_detail = get_object_or_404(User, pk=user_id)
-    # client_detail = Client.objects.get(user=user_detail)
-    # fq = fuelQuote()
-    # fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
-
-    # if request.method == 'POST':
-    #     form = fuelQuoteForm(request.POST)
-    #     if form.is_valid():
-    #         fq.user = user_detail
-    #         fq.gallonsRequested = form.cleaned_data['gallons_requested']
-    #         fq.deliveryDate = form.cleaned_data['delivery_date']
-    #         fq.get_total_price()
-    #         return HttpResponse('Return data to ajax call')
 
     
         
