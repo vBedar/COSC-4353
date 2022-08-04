@@ -55,21 +55,21 @@ class pricingTest(TestCase):
         #u1p1 sp = 1.5 + (1.5*(.02-.01+.03+.1)) = 1.71 * 200 = 342
         self.assertEqual(u1p1.suggestedPrice, 1.71)
         self.assertEqual(u1p1.totalAmountDue, 342.00)
-        #u1p2 sp = 1.5 + (1.5*(.02-.01+.02+.1)) = 1.695 * 10000 = 16950
-        self.assertEqual(u1p2.suggestedPrice, 1.695)
-        self.assertEqual(u1p2.totalAmountDue, 16950.00)
+        #u1p2 sp = 1.5 + (1.5*(.02-.01+.02+.1)) = 1.7 * 10000 = 17000
+        self.assertEqual(u1p2.suggestedPrice, 1.7)
+        self.assertEqual(u1p2.totalAmountDue, 17000.00)
         #u1p3 sp = 1.5 + (1.5*(.04-.01+.03+.1)) = 1.74 * 200 = 348
         self.assertEqual(u1p3.suggestedPrice, 1.74)
         self.assertEqual(u1p3.totalAmountDue, 348.00)
-        #u1p4 sp = 1.5 + (1.5*(.04-.01+.02+.1)) = 1.725 * 10000 = 17250
-        self.assertEqual(u1p4.suggestedPrice, 1.725)
-        self.assertEqual(u1p4.totalAmountDue, 17250.00)
-        #u2p1 sp = 1.5 + (1.5*(.02-0+.03+.1)) = 1.725 * 100 = 172.50
-        self.assertEqual(u2p1.suggestedPrice, 1.725)
-        self.assertEqual(u2p1.totalAmountDue, 172.50)
-        #u3p1 sp = 1.5 + (1.5*(.04-0+.03+.1)) = 1.755 * 100 = 175.50
-        self.assertEqual(u3p1.suggestedPrice, 1.755)
-        self.assertEqual(u3p1.totalAmountDue, 175.50)
+        #u1p4 sp = 1.5 + (1.5*(.04-.01+.02+.1)) = 1.73 * 10000 = 17300
+        self.assertEqual(u1p4.suggestedPrice, 1.73)
+        self.assertEqual(u1p4.totalAmountDue, 17300.00)
+        #u2p1 sp = 1.5 + (1.5*(.02-0+.03+.1)) = 1.73 * 100 = 173
+        self.assertEqual(u2p1.suggestedPrice, 1.73)
+        self.assertEqual(u2p1.totalAmountDue, 173.00)
+        #u3p1 sp = 1.5 + (1.5*(.04-0+.03+.1)) = 1.75 * 100 = 175
+        self.assertEqual(u3p1.suggestedPrice, 1.75)
+        self.assertEqual(u3p1.totalAmountDue, 175.00)
         #u4p1 sp = 1.5 + (1.5*(.04-0+.02+.1)) = 1.74 * 2000 = 3480
         self.assertEqual(u4p1.suggestedPrice, 1.74)
         self.assertEqual(u4p1.totalAmountDue, 3480.00)

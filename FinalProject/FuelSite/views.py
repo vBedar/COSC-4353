@@ -223,7 +223,6 @@ def submitFuelQuote(request, user_id):
     fq = fuelQuote()
     fq.deliveryAddress = client_detail.stAddress1 + " " + client_detail.city + ", " + client_detail.state + " " + client_detail.zip
     form = fuelQuoteForm(request.POST)
-    checks = true
 
     if request.method == 'POST':
         if 'get_quote' in request.POST:
